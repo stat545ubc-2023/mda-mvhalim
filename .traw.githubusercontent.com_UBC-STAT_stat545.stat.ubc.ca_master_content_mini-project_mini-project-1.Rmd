@@ -97,7 +97,7 @@ And that is exactly the first thing that you will do!
 *Hint:* This is one of those times when you should think about the cleanliness of your analysis. I added a single code chunk for you below, but do you want to use more than one? Would you like to write more comments outside of the code chunk?
 
 <!-------------------------- Start your work below ---------------------------->
-We are looking at 4 datasets which are: steam_games, cancer_sample, building_permits and flow_sample. The variables that we show below are number of column and rows, class types, and then column names to get a sense of the variables measured.
+We are looking at 4 datasets which are: steam_games, cancer_sample, building_permits and flow_sample. The variables that we show below are number of column and rows, class types, and then column names to get a sense of the variables measured
 ```{r}
 ### EXPLORE HERE ###
 #steam_games exploration
