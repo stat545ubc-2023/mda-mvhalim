@@ -168,14 +168,14 @@ Make sure that you're using dplyr and ggplot2 rather than base R for this task. 
 2.2 **(4 points)** For each of the 4 exercises that you complete, provide a *brief explanation* of why you chose that exercise in relation to your data (in other words, why does it make sense to do that?), and sufficient comments for a reader to understand your reasoning and code.
 
 <!-------------------------- Start your work below ---------------------------->
-## Task 2.2
-**First lets have the steam_games dataset on display with the head() function for easy reference**
+## Task 2.1 and Task 2.2
+**First lets have the steam_games dataset on display for easy reference**
 ```{r}
 head(steam_games)
 ```
 ### **Please Note: The codes chunks in these 4 exercise are designed to be run sequentially, due to some values from Exercise 1/4 being used in Exercise 2/4, and so on**
 
-## Exercise 1/4 (From Exercise #2)
+## Exercise 1/4 (From Exercise #2 : Create a new variable based on other variables in your data (only if it makes sense))
 
 **In this analysis exercise of steam_games, we'll start with Exercise #2: Creating a new variable based on other variables. We are going to use a mutate() function to find the change in price ( percentage wise) from original_price and discounted_price. Then I presented the data to only correlate the price related variables with the game title. We can see how in each title how much the price jumped or dropped after release.**
 
@@ -189,32 +189,32 @@ head(Firstexerciseomit)
 
 
 ```
-## Exercise 2/4 (From Exercise #8)
+## Exercise 2/4 (From Exercise #8 : Use a density plot to explore any of your variables (that are suitable for this type of plot))
 
 **In the next analysis, lets graph the density plot of game prices at their original releases. An additional parameter is also to look at games that is below $200, since it helps to focus on the main cluster of the dataset (*And also today is the day I learned some people will buy games for more than 300 dollars!* )**
 ```{r}
 Below200price <- filter(Firstexerciseomit, original_price<200)
 Secondexercise <- ggplot(Below200price, aes(x=original_price)) +
-  geom_density() + 
+  geom_density(colour = "blue") + 
   labs(x="Original Price ($)")
 print(Secondexercise)
 
 ```
 
-## Exercise 3/4 (From Exercise #1)
+## Exercise 3/4 (From Exercise #1: Plot the distribution of a numeric variable.)
 
-**In this analysis, lets see the distribution of original prices for games below $200.**
+**In this analysis, lets see the distribution of original prices for games below $200. This is so we can see how much games on Steam typically cost**
 
 ```{r}
 Below200price <- filter(Firstexerciseomit, original_price<200) 
 Thirdexercise<- ggplot(Below200price, aes(x=original_price)) +
-   geom_histogram()+ 
+   geom_histogram(binwidth = 6, colour = "white", fill="blue")+ 
   labs(x="Original Price ($)")
 
 print(Thirdexercise)
 ```
 
-## Exercise 4/4 (From Exercise #5)
+## Exercise 4/4 (From Exercise #5 : Filter observations in your data according to your own criteria. Think of what you'd like to explore - again, if this was the `titanic` dataset, I may want to narrow my search down to passengers born in a particular year...)
 **In this analysis, I want to narrow down my dataset to games that are sold as a bundle, and also categorized as pure Strategy games. Then I want to visualize the data to see which titles and developers match my set criteria above.**
 
 ```{r}
