@@ -83,6 +83,7 @@ And that is exactly the first thing that you will do!
 **Note**: We encourage you to use the ones in the `datateachr` package, but if you have a dataset that you'd really like to use, you can include it here. But, please check with a member of the teaching team to see whether the dataset is of appropriate complexity. Also, include a **brief** description of the dataset here to help the teaching team understand your data.
 
 <!-------------------------- Start your work below ---------------------------->
+## Potential Datasets
 
 1: steam_games
 2: cancer_sample
@@ -96,37 +97,34 @@ And that is exactly the first thing that you will do!
 *Hint:* This is one of those times when you should think about the cleanliness of your analysis. I added a single code chunk for you below, but do you want to use more than one? Would you like to write more comments outside of the code chunk?
 
 <!-------------------------- Start your work below ---------------------------->
-We are looking at 4 datasets which are: steam_games, cancer_sample, building_permits and flow_sample. The variables that we show below are number of column and rows, class types, and then a summary () to get an overview of the datasets.
+We are looking at 4 datasets which are: steam_games, cancer_sample, building_permits and flow_sample. The variables that we show below are number of column and rows, class types, and then column names to get a sense of the variables measured.
 ```{r}
 ### EXPLORE HERE ###
 #steam_games exploration
 print("steam games")
 dim(steam_games)
 class(steam_games)
-summary(steam_games)
-glimpse(steam_games)
+colnames(steam_games)
 
 
 #cancer_sample exploration
 print("cancer samples")
 dim(cancer_sample)
 class(cancer_sample)
-summary(cancer_sample)
-glimpse(cancer_sample)
+colnames(cancer_sample)
+
 
 #building_permits
 print("building permits")
 dim(building_permits)
 class(building_permits)
-summary(building_permits)
-glimpse(building_permits)
+colnames(building_permits)
 
 #flow_sample
 print("flow sample")
 dim(flow_sample)
 class(flow_sample)
-summary(flow_sample)
-glimpse(flow_sample)
+colnames(flow_sample)
 
 ```
 
@@ -135,13 +133,13 @@ glimpse(flow_sample)
 1.3 **(1 point)** Now that you've explored the 4 datasets that you were initially most interested in, let's narrow it down to 1. What lead you to choose this one? Briefly explain your choice below.
 
 <!-------------------------- Start your work below ---------------------------->
-I am choosing the steam_games dataset mainly due to familiarity with the context of the data and also the potential correlation each data (such as price vs language and/or publisher vs maturity setting). In short it has enough understandable variables for me to explore. 
+I am choosing the "steam_games" dataset mainly due to familiarity with the context of the data and also the potential correlation each data (such as price vs language and/or publisher vs maturity setting). In other words it has enough understandable variables for me to explore. 
 <!----------------------------------------------------------------------------->
 
 1.4 **(2 points)** Time for a  final decision! Going back to the beginning, it's important to have an *end goal* in mind. For example, if I had chosen the `titanic` dataset for my project, I might've wanted to explore the relationship between survival and other variables. Try to think of 1 research question that you would want to answer with your dataset. Note it down below.
 
 <!-------------------------- Start your work below ---------------------------->
-For the steam_games dataset, one of the research question is that I want to find the relationship between player review and eventual discount in the price. 
+For the steam_games dataset, one of the research question is that I want to find the relationship between player review and eventual change in the price. 
 <!----------------------------------------------------------------------------->
 
 # Important note
@@ -171,13 +169,16 @@ Make sure that you're using dplyr and ggplot2 rather than base R for this task. 
 
 <!-------------------------- Start your work below ---------------------------->
 ## Task 2.2
-First lets have the steam_games dataset on display with the head() function for easy reference
+**First lets have the steam_games dataset on display with the head() function for easy reference**
 ```{r}
 head(steam_games)
 ```
+### **Please Note: The codes chunks in these 4 exercise are designed to be run sequentially, due to some values from Exercise 1/4 being used in Exercise 2/4, and so on**
 
-In this analysis exercise of steam_games, we'll start with Exercise #2: Creating a new variable based on other variables. We are going to use a mutate() function to find the change in price ( percentage wise) from original_price and discounted_price. We can see how in each title how much the price jumped or dropped after release.
 ## Exercise 1/4 (From Exercise #2)
+
+**In this analysis exercise of steam_games, we'll start with Exercise #2: Creating a new variable based on other variables. We are going to use a mutate() function to find the change in price ( percentage wise) from original_price and discounted_price. Then I presented the data to only correlate the price related variables with the game title. We can see how in each title how much the price jumped or dropped after release.**
+
 ```{r}
 Firstexercise <- steam_games %>%
   mutate(price_change_percentage = ((discount_price - original_price)/original_price)*100) %>%
@@ -189,15 +190,39 @@ head(Firstexerciseomit)
 
 ```
 ## Exercise 2/4 (From Exercise #8)
-In the next analysis, lets find out the ABCD 
+
+**In the next analysis, lets graph the density plot of game prices at their original releases. An additional parameter is also to look at games that is below $200, since it helps to focus on the main cluster of the dataset (*And also today is the day I learned some people will buy games for more than 300 dollars!* )**
 ```{r}
 Below200price <- filter(Firstexerciseomit, original_price<200)
 Secondexercise <- ggplot(Below200price, aes(x=original_price)) +
-  geom_density()
+  geom_density() + 
+  labs(x="Original Price ($)")
 print(Secondexercise)
 
+```
 
-head(Firstexerciseomit)
+## Exercise 3/4 (From Exercise #1)
+
+**In this analysis, lets see the distribution of original prices for games below $200.**
+
+```{r}
+Below200price <- filter(Firstexerciseomit, original_price<200) 
+Thirdexercise<- ggplot(Below200price, aes(x=original_price)) +
+   geom_histogram()+ 
+  labs(x="Original Price ($)")
+
+print(Thirdexercise)
+```
+
+## Exercise 4/4 (From Exercise #5)
+**In this analysis, I want to narrow down my dataset to games that are sold as a bundle, and also categorized as pure Strategy games. Then I want to visualize the data to see which titles and developers match my set criteria above.**
+
+```{r}
+Fourthexercise <- filter(steam_games, types=="bundle", genre=="Strategy") %>%
+  select(name,developer, types, genre)
+
+head(Fourthexercise)
+
 ```
 <!----------------------------------------------------------------------------->
 
@@ -206,6 +231,12 @@ head(Firstexerciseomit)
 **(4 points)** So far, you have chosen a dataset and gotten familiar with it through exploring the data. You have also brainstormed one research question that interested you (Task 1.4).  Now it's time to pick 4 research questions that you would like to explore in Milestone 2! Write the 4 questions and any additional comments below. 
 
 <!--- *****START HERE***** --->
+## Research Questions for Milestone 2
+
+1. I want to find the relationship between player review and price changes in game titles
+2. In this dataset, I want to find which game developer have a tendency to add many achievements in their title releases. As maybe that gives context on the game's replay value.
+3. What genres of game that have become more or less popular over the few recent years?
+4. How well does Mature rated game export to other countries? The implication of games with many languages is that it is available to many countries, hence easily passing censorship laws. My hypothesis is that the more mature games will be more localized, hence less language options.
 
 <!----------------------------->
 
