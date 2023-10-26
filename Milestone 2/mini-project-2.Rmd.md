@@ -164,23 +164,18 @@ for!
 reference**
 
 ``` r
-print(steam_games)
+head(steam_games)
 ```
 
-    ## # A tibble: 40,833 × 21
-    ##       id url    types name  desc_snippet recent_reviews all_reviews release_date
-    ##    <dbl> <chr>  <chr> <chr> <chr>        <chr>          <chr>       <chr>       
-    ##  1     1 https… app   DOOM  Now include… Very Positive… Very Posit… May 12, 2016
-    ##  2     2 https… app   PLAY… PLAYERUNKNO… Mixed,(6,214)… Mixed,(836… Dec 21, 2017
-    ##  3     3 https… app   BATT… Take comman… Mixed,(166),-… Mostly Pos… Apr 24, 2018
-    ##  4     4 https… app   DayZ  The post-so… Mixed,(932),-… Mixed,(167… Dec 13, 2018
-    ##  5     5 https… app   EVE … EVE Online … Mixed,(287),-… Mostly Pos… May 6, 2003 
-    ##  6     6 https… bund… Gran… Grand Theft… NaN            NaN         NaN         
-    ##  7     7 https… app   Devi… The ultimat… Very Positive… Very Posit… Mar 7, 2019 
-    ##  8     8 https… app   Huma… Human: Fall… Very Positive… Very Posit… Jul 22, 2016
-    ##  9     9 https… app   They… They Are Bi… Very Positive… Very Posit… Dec 12, 2017
-    ## 10    10 https… app   Warh… In a world … <NA>           Mixed,(904… May 31, 2019
-    ## # ℹ 40,823 more rows
+    ## # A tibble: 6 × 21
+    ##      id url     types name  desc_snippet recent_reviews all_reviews release_date
+    ##   <dbl> <chr>   <chr> <chr> <chr>        <chr>          <chr>       <chr>       
+    ## 1     1 https:… app   DOOM  Now include… Very Positive… Very Posit… May 12, 2016
+    ## 2     2 https:… app   PLAY… PLAYERUNKNO… Mixed,(6,214)… Mixed,(836… Dec 21, 2017
+    ## 3     3 https:… app   BATT… Take comman… Mixed,(166),-… Mostly Pos… Apr 24, 2018
+    ## 4     4 https:… app   DayZ  The post-so… Mixed,(932),-… Mixed,(167… Dec 13, 2018
+    ## 5     5 https:… app   EVE … EVE Online … Mixed,(287),-… Mostly Pos… May 6, 2003 
+    ## 6     6 https:… bund… Gran… Grand Theft… NaN            NaN         NaN         
     ## # ℹ 13 more variables: developer <chr>, publisher <chr>, popular_tags <chr>,
     ## #   game_details <chr>, languages <chr>, achievements <dbl>, genre <chr>,
     ## #   game_description <chr>, mature_content <chr>, minimum_requirements <chr>,

@@ -106,7 +106,7 @@ Make sure it's clear what research question you are doing each operation for!
 reference**
 
 ```{r}
-print(steam_games)
+head(steam_games)
 ```
 #### Research question 1.(I want to find the relationship between player review and price changes in game titles)
 
