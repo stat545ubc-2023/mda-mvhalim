@@ -284,10 +284,11 @@ print(range_achievement)
 
     ## [1] 9820
 
-*Comment*: By finding the mean, median, range, minimum and maximum
-achievements across the steam_games dataset, it just presents numbers.
-However, the median value does tell me somewhat the “average” number of
-achievements one could expect from a normal game.
+*Comment*: The median value does tell me somewhat the “average” number
+of achievements one could expect from a normal game.The mean could not
+be used as an average due to extreme outliers in some games having
+\<9000 achievements. This helps us know the approximate number of
+achievements we can expect per game.
 
 **Graphing Task \#6 “Create a graph of your choosing, make one of the
 axes logarithmic, and format the axes labels so that they are”pretty” or
@@ -334,13 +335,14 @@ after release. It seems there is no clear trend observed.
 one of your categorical variables.”**
 
 In this task, we will use a str_count function to count the number of
-genre each game has.I also used the lubridate function because the
-original release_date column is not in a standard format and it was
-difficult to make the following graph
+genre each game has, counting each word seperated by a comma. I also
+used the lubridate function because the original release_date column is
+not in a standard format and it was difficult to make the following
+graph
 
 ``` r
 genresteamgames<- steam_games %>% 
-  mutate(genre_number = str_count(steam_games$genre, ",") +1 ) %>% mutate(release_date = mdy(release_date)) %>%
+  mutate(genre_number = str_count(steam_games$genre, ",") +1 )%>% mutate(release_date = mdy(release_date)) %>%
   select(id, name, genre, genre_number, release_date )
 ```
 
@@ -371,7 +373,7 @@ print(genresteamgames)
 *Comment*: This task just creates a column that quantifies how many
 genres each game falls under, technically we can compare this next to
 the release_date in table form, but this does not make it easy to answer
-the question.
+the question due to the sheer number of games.
 
 **Graphing Task \#8 “Make a graph where it makes sense to customize the
 alpha transparency”**
@@ -436,7 +438,7 @@ best.”**
 
 ``` r
 histogrambin0.5 <- ggplot(languagesteamgames, aes(language_number)) +
-              geom_histogram(binwidth =0.5, colour = "white", fill="blue" )
+              geom_histogram(binwidth =0.5, colour = "white", fill="blue" )+ xlab("Number of Languages")
 print(histogrambin0.5)
 ```
 
@@ -444,7 +446,7 @@ print(histogrambin0.5)
 
 ``` r
 histogrambin1 <- ggplot(languagesteamgames, aes(language_number)) +
-              geom_histogram(binwidth =1, colour = "white", fill="blue" )
+              geom_histogram(binwidth =1, colour = "white", fill="blue" ) + xlab("Number of Languages")
 print(histogrambin1)
 ```
 
@@ -452,7 +454,7 @@ print(histogrambin1)
 
 ``` r
 histogrambin2 <- ggplot(languagesteamgames, aes(language_number)) +
-              geom_histogram(binwidth =2, colour = "white", fill="blue" )
+              geom_histogram(binwidth =2, colour = "white", fill="blue" ) + xlab("Number of Languages")
 print(histogrambin2)
 ```
 
@@ -711,28 +713,8 @@ reviewpricechange <- steam_games_discountlevel %>%
     grepl("Very Positive", all_reviews) ~ "Very Positive",
     grepl("Overwhelmingly Positive", all_reviews) ~ "Overwhelmingly Positive",
     grepl("Mostly Positive", all_reviews) ~ "Mostly Positive")) %>% na.omit() 
-print(reviewpricechange)
-```
 
-    ## # A tibble: 75 × 8
-    ##       id name               original_price discount_price price_change_percent…¹
-    ##    <dbl> <chr>                       <dbl>          <dbl>                  <dbl>
-    ##  1     7 Devil May Cry 5             60.0            70.4                   17.4
-    ##  2    38 Life is Strange 2            7.99           40.0                  400  
-    ##  3    76 Call of Duty®: WW…           1.02          906.                 88771. 
-    ##  4    95 Shadow Tactics: B…          40.0            13.6                  -66.0
-    ##  5   154 SCUM                        20.0            28.5                   42.5
-    ##  6   225 Rising Storm 2: V…          25.0           216.                   766. 
-    ##  7   255 Pillars of Eterni…          50.0            81.0                   62.0
-    ##  8   272 Left 4 Dead 2                9.99           15.0                   49.9
-    ##  9   281 RESIDENT EVIL 2 /…          60.0            14.9                  -75.1
-    ## 10   346 Conan Exiles                40.0            30.0                  -25.1
-    ## # ℹ 65 more rows
-    ## # ℹ abbreviated name: ¹​price_change_percentage
-    ## # ℹ 3 more variables: discount_level <chr>, all_reviews <chr>,
-    ## #   general_review <chr>
 
-``` r
 #We will keep our observation with games that does not exceed 500% in price increase, as this eliminates games that is released at a very low price originally. I also ordered the x-axis from gradually better reviews for ease of viewing
 
 below500pricechange <- filter(reviewpricechange, price_change_percentage <500)
@@ -760,20 +742,7 @@ languagesteamgames<- steam_games %>%
   select(id, name, languages, language_number, mature_content )%>% na.omit()
 #This code here is to get rid of "NaN" entries in the mature_content column. Basically to weed out the games without mature content
 maturecontent_and_language <- languagesteamgames %>% filter(mature_content != "NaN")
-head(maturecontent_and_language)
-```
 
-    ## # A tibble: 6 × 5
-    ##      id name                          languages   language_number mature_content
-    ##   <dbl> <chr>                         <chr>                 <dbl> <chr>         
-    ## 1     2 PLAYERUNKNOWN'S BATTLEGROUNDS English,Ko…              17 Mature Conten…
-    ## 2     7 Devil May Cry 5               English,Fr…              12 Mature Conten…
-    ## 3    10 Warhammer: Chaosbane          English,Fr…              13 Mature Conten…
-    ## 4    13 TERA                          English                   1 Mature Conten…
-    ## 5    32 Hellblade: Senua's Sacrifice  English,Fr…              20 Mature Conten…
-    ## 6    34 Yakuza 0                      English,Ja…               2 Mature Conten…
-
-``` r
 mature_language_plot <- ggplot(maturecontent_and_language, aes(language_number)) + 
                 geom_histogram(binwidth =1, colour = "white", fill="green")+ylab("Mature Games") +xlab("Number of Languages")
 print(mature_language_plot)
